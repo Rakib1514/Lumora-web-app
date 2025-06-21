@@ -28,3 +28,4 @@
 .link__hover:hover::after {
   transform: scaleX(1);
 }
+
