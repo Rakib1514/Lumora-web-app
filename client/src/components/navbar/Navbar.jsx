@@ -1,5 +1,7 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
+import { IoCartOutline, IoHeart, IoHeartOutline, IoSearchOutline } from "react-icons/io5";
+import { MdOutlineAccountBox } from "react-icons/md";
 import { Link } from "react-router";
 
 const Navbar = () => {
@@ -63,9 +65,19 @@ const Navbar = () => {
           <div className="uppercase text-center text-2xl font-semibold ">
             <Link>Lumora</Link>
           </div>
-          <div className="flex gap-2 absolute top-0 right-0 h-full">
-            <button>cart</button>
-            <button>wishlist</button>
+          <div className="flex gap-2 absolute top-0 right-0 h-full text-2xl">
+            <button>
+              <IoSearchOutline />
+            </button>
+            <button>
+              <IoCartOutline />
+            </button>
+            <button>
+              <IoHeartOutline />
+            </button>
+            <button>
+              <MdOutlineAccountBox />
+            </button>
           </div>
         </div>
 
@@ -88,7 +100,6 @@ const Navbar = () => {
       </div>
 
       {/* Sub menu */}
-
       <AnimatePresence>
         {activeDropdown &&
           navLinks.find((link) => link.title === activeDropdown).subLinks && (
