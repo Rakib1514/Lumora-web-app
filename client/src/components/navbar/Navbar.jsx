@@ -1,5 +1,4 @@
 import { AnimatePresence, motion } from "motion/react";
-import { path } from "motion/react-client";
 import { useState } from "react";
 import { Link } from "react-router";
 
@@ -93,7 +92,11 @@ const Navbar = () => {
         {activeDropdown &&
           navLinks.find((link) => link.title === activeDropdown).subLinks && (
             <motion.div
-              className="bg-secondary w-full min-h-[50vh] fixed"
+              className="bg-secondary w-full min-h-[50vh] fixed "
+              initial={{ opacity: 0}}
+              animate={{y: 0, opacity: 1}}
+              exit={{ opacity: 0}}
+              transition={{type: "spring", stiffness: 300, damping: 30}}
               onMouseEnter={() => setActiveDropdown(activeDropdown)}
               onMouseLeave={() => setActiveDropdown(null)}
             >
