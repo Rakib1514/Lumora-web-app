@@ -40,15 +40,13 @@ const Banner = () => {
       }}
     >
       <Carousel {...settings} >
-        <div className="h-screen bg-amber-500 flex items-center justify-center">
-          <h3 className="text-6xl text-white">1</h3>
+        <div className="h-screen flex items-center justify-center">
+          <img src="https://cdn.prosystem.com.bd/images/AMISHEE/A-16-10-24_-2783-copy-c72d01b24-6502-4b18-bf42-4678fd8451bc.jpg" alt="" className="object-cover h-full w-full object-center"/>
         </div>
-        <div className="h-screen bg-purple-500 flex items-center justify-center">
-          <h3 className="text-6xl text-white">2</h3>
+        <div className="h-screen flex items-center justify-center">
+          <img src="https://cdn.prosystem.com.bd/images/AMISHEE/A-16-10-24_-1288-copy-c72dbf3ca-32a0-40a9-a6c8-f11bb89bd1d9.jpg" alt="" className="object-cover h-full w-full object-center"/>
         </div>
-        <div className="h-screen bg-blue-500 flex items-center justify-center">
-          <h3 className="text-6xl text-white">3</h3>
-        </div>
+        
       </Carousel>
     </div>
   );

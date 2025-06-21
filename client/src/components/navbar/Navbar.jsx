@@ -128,7 +128,10 @@ const Navbar = () => {
           {navLinks.map((link, idx) => (
             <li
               key={idx}
-              className="capitalize px-4 py-4 link__hover"
+              className={
+                `capitalize px-4 py-4 link__hover ` +
+                (colorToggle ? "text-black" : "text-white")
+              }
               onMouseEnter={() => {
                 link?.subLinks ? setActiveDropdown(link.title) : null;
               }}
