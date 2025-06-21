@@ -1,6 +1,11 @@
 import { AnimatePresence, motion } from "motion/react";
-import { useState } from "react";
-import { IoCartOutline, IoHeart, IoHeartOutline, IoSearchOutline } from "react-icons/io5";
+import { useEffect, useState } from "react";
+import {
+  IoCartOutline,
+  IoHeart,
+  IoHeartOutline,
+  IoSearchOutline,
+} from "react-icons/io5";
 import { MdOutlineAccountBox } from "react-icons/md";
 import { Link } from "react-router";
 
@@ -10,6 +15,34 @@ const Navbar = () => {
   const [subMenuActiveImg, setSubMenuActiveImg] = useState(
     "https://i.ibb.co.com/nM83jFrc/default-sub-Menu-image.webp"
   );
+
+  const [hideNav, setHideNav] = useState(false);
+  const [colorToggle, setColorToggle] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+
+      // Hide/show navbar on scroll direction
+      if (currentY > lastScrollY && currentY > 50) {
+        setHideNav(true);
+      } else {
+        setHideNav(false);
+      }
+      setLastScrollY(currentY);
+
+      // Toggle background based on first viewport height
+      if (currentY > window.innerHeight) {
+        setColorToggle(true);
+      } else {
+        setColorToggle(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
   const navLinks = [
     {
@@ -58,7 +91,15 @@ const Navbar = () => {
   ];
 
   return (
-    <nav>
+    <motion.nav
+      className={
+        `fixed top-0 left-0 w-full z-50 transition-colors duration-300 ` +
+        (colorToggle ? "bg-white shadow-lg" : "bg-transparent")
+      }
+      initial={{ y: 0 }}
+      animate={{ y: hideNav ? -100 : 0 }}
+      transition={{ type: "tween", duration: 0.3 }}
+    >
       <div className="w-11/12 mx-auto">
         {/* first - Middle brand Name */}
         <div className="py-2 relative">
@@ -147,7 +188,7 @@ const Navbar = () => {
             </motion.div>
           )}
       </AnimatePresence>
-    </nav>
+    </motion.nav>
   );
 };
 
