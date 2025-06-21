@@ -5,8 +5,9 @@ import { Link } from "react-router";
 const Navbar = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
 
-  const [subMenuActiveImg, setSubMenuActiveImg] = useState("https://i.ibb.co.com/nM83jFrc/default-sub-Menu-image.webp");
-  
+  const [subMenuActiveImg, setSubMenuActiveImg] = useState(
+    "https://i.ibb.co.com/nM83jFrc/default-sub-Menu-image.webp"
+  );
 
   const navLinks = [
     {
@@ -21,7 +22,7 @@ const Navbar = () => {
         {
           title: "All collections",
           path: "/all-collections",
-          thumb: "https://i.ibb.co.com/nM83jFrc/default-sub-Menu-image.webp"
+          thumb: "https://i.ibb.co.com/nM83jFrc/default-sub-Menu-image.webp",
         },
         {
           title: "jewelry sets",
@@ -93,10 +94,10 @@ const Navbar = () => {
           navLinks.find((link) => link.title === activeDropdown).subLinks && (
             <motion.div
               className="bg-secondary w-full min-h-[50vh] fixed "
-              initial={{ opacity: 0}}
-              animate={{y: 0, opacity: 1}}
-              exit={{ opacity: 0}}
-              transition={{type: "spring", stiffness: 300, damping: 30}}
+              initial={{ opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
               onMouseEnter={() => setActiveDropdown(activeDropdown)}
               onMouseLeave={() => setActiveDropdown(null)}
             >
@@ -105,13 +106,31 @@ const Navbar = () => {
                   {navLinks
                     .find((link) => link.title === activeDropdown)
                     .subLinks.map((subLink, idx) => (
-                      <div key={idx} >
-                        <button className="uppercase link__hover py-2 font-semibold" onMouseEnter={()=>setSubMenuActiveImg(subLink.thumb)}>{subLink.title}</button>
+                      <div key={idx}>
+                        <button
+                          className="uppercase link__hover py-2 font-semibold"
+                          onMouseEnter={() =>
+                            setSubMenuActiveImg(subLink.thumb)
+                          }
+                        >
+                          {subLink.title}
+                        </button>
                       </div>
                     ))}
                 </div>
-                <div className="w-[40vw] h-[40vh]">
-                    <img src={subMenuActiveImg} alt="" className="h-full w-full object-cover"/>
+                <div className="w-[40vw] h-[40vh] relative overflow-hidden">
+                  <AnimatePresence initial={false} mode="sync">
+                    <motion.img
+                      key={subMenuActiveImg}
+                      src={subMenuActiveImg}
+                      alt="submenu thumbnail"
+                      className="absolute top-0 left-0 h-full w-full object-cover"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.5, ease: "easeIn" }}
+                    />
+                  </AnimatePresence>
                 </div>
               </div>
             </motion.div>
