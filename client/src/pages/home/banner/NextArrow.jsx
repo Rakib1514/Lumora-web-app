@@ -13,7 +13,7 @@ const NextArrow = ({ onClick, isVisible }) => (
       z-20
     `}
   >
-    <GrNext className="text-4xl text-white"/>
+    <GrNext className="text-4xl text-white hover:cursor-pointer"/>
 
   </button>
 );

@@ -1,18 +1,18 @@
 import { Carousel } from "antd";
 import "antd/dist/reset.css";
 import { motion, useTransform } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import NextArrow from "./NextArrow";
 import PrevArrow from "./PrevArrow";
-import { path, sub } from "motion/react-client";
 
 const Banner = ({ scrollY }) => {
   const [showPrev, setShowPrev] = useState(false);
   const [showNext, setShowNext] = useState(false);
 
   const [vh, setVh] = useState(0);
+
   useEffect(() => {
     const updateVh = () => setVh(window.innerHeight);
     updateVh();
@@ -21,6 +21,9 @@ const Banner = ({ scrollY }) => {
   }, []);
 
   const overlayOpacity = useTransform(scrollY, [0, vh], [0.2, 0.8]);
+  
+  // Make text opacity decrease more gradually as you scroll
+  const textOpacity = useTransform(scrollY, [0, vh * 0.3], [1, 0]);
 
   const settings = {
     fade: true,
@@ -84,11 +87,16 @@ const Banner = ({ scrollY }) => {
               className="object-cover h-full w-full object-center"
             />
 
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-white z-10">
+            <motion.div
+              style={{ opacity: textOpacity }}
+              className="absolute inset-0 flex flex-col items-center justify-center text-white z-10"
+            >
               <h2 className="text-4xl">{carousel.heading}</h2>
               <p className="text-xl ">{carousel.subHeading}</p>
-              <button className=" py-2 px-4 border-2 border-primary">Explore</button>
-            </div>
+              <button className=" py-2 px-4 border-2 border-primary">
+                Explore
+              </button>
+            </motion.div>
 
             {/* overlay layer */}
             <motion.div
