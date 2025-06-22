@@ -21,7 +21,10 @@ const itemSchema = new mongoose.Schema({
   material: {
     type: String,
     required: true,
-    message: "Material is required",
+    enum: {
+      values: ["gold", "silver", "diamond", "platinum", "bronze"],
+      message: "Material must be gold, silver, or diamond",
+    },
   },
   brand: {
     type: String,
