@@ -13,7 +13,7 @@ const PrevArrow = ({ onClick, isVisible }) => (
       z-20
     `}
   >
-    <GrPrevious className="text-4xl"/>
+    <GrPrevious className="text-4xl text-white"/>
   </button>
 );
 

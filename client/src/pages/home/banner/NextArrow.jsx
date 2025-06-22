@@ -13,7 +13,7 @@ const NextArrow = ({ onClick, isVisible }) => (
       z-20
     `}
   >
-    <GrNext className="text-4xl"/>
+    <GrNext className="text-4xl text-white"/>
 
   </button>
 );
