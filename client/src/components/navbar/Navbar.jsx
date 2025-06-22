@@ -175,7 +175,7 @@ const Navbar = () => {
                     .subLinks.map((subLink, idx) => (
                       <div key={idx}>
                         <button
-                          className="link__hover py-2 font-semibold"
+                          className="link__hover py-2 font-semibold hover:cursor-pointer"
                           onMouseEnter={() =>
                             setSubMenuActiveImg(subLink.thumb)
                           }
