@@ -1,18 +1,18 @@
 import { Carousel } from "antd";
 import "antd/dist/reset.css";
 import { motion, useTransform } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import NextArrow from "./NextArrow";
 import PrevArrow from "./PrevArrow";
-import { path, sub } from "motion/react-client";
 
 const Banner = ({ scrollY }) => {
   const [showPrev, setShowPrev] = useState(false);
   const [showNext, setShowNext] = useState(false);
 
   const [vh, setVh] = useState(0);
+  
   useEffect(() => {
     const updateVh = () => setVh(window.innerHeight);
     updateVh();
