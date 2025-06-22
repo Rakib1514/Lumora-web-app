@@ -2,7 +2,7 @@ const { default: mongoose } = require("mongoose");
 
 const categorySchema = new mongoose.Schema(
   {
-    category: {
+    name: {
       type: String,
       required: true,
       unique: true,
@@ -13,10 +13,12 @@ const categorySchema = new mongoose.Schema(
     },
   },
   {
-    timestamps: true,
+    versionKey: false,
   }
 );
 
 const Category = mongoose.model("Category", categorySchema);
+
+Category.init();
 
 module.exports = Category;

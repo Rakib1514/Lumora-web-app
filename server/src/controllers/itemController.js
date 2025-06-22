@@ -1,6 +1,5 @@
 const Item = require("../models/itemModel");
 
-
 // GET /items?page=1&limit=20
 const getItems = async (req, res) => {
   const page = Math.max(1, parseInt(req.query.page, 10) || 1);
@@ -9,7 +8,7 @@ const getItems = async (req, res) => {
   try {
     const items = await Item.find()
       .select("title price image stock material brand artist discount rating")
-      .populate("category", "name")
+      .populate("category", "-_id -__v")
       .skip((page - 1) * limit)
       .limit(limit)
       .lean();
