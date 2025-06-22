@@ -32,7 +32,6 @@ const Navbar = () => {
       }
       setLastScrollY(currentY);
 
-      // Toggle background based on first viewport height
       if (currentY > window.innerHeight) {
         setColorToggle(true);
       } else {
@@ -94,7 +93,9 @@ const Navbar = () => {
     <motion.nav
       className={
         `fixed top-0 left-0 w-full z-50 transition-colors duration-300 ` +
-        (colorToggle ? "bg-white shadow-lg" : "bg-transparent")
+        (colorToggle
+          ? "bg-white shadow-lg"
+          : "bg-transparent hover:bg-secondary")
       }
       initial={{ y: 0 }}
       animate={{ y: hideNav ? -100 : 0 }}
@@ -103,10 +104,19 @@ const Navbar = () => {
       <div className="w-11/12 mx-auto">
         {/* first - Middle brand Name */}
         <div className="py-2 relative">
-          <div className="uppercase text-center text-2xl font-semibold ">
+          <div
+            className={
+              `uppercase text-center text-2xl font-semibold ` +
+              (colorToggle ? "text-black" : "text-white")
+            }
+          >
             <Link>Lumora</Link>
           </div>
-          <div className="flex gap-2 absolute top-0 right-0 h-full text-2xl">
+          <div
+            className={`flex gap-2 absolute top-0 right-0 h-full text-2xl ${
+              colorToggle ? "text-black" : "text-white"
+            }`}
+          >
             <button>
               <IoSearchOutline />
             </button>
@@ -123,8 +133,10 @@ const Navbar = () => {
         </div>
 
         {/* Second - Middle Nav Links */}
-
-        <ul className="flex justify-center items-center capitalize ">
+        <ul
+          className="flex justify-center items-center capitalize "
+          style={{ marginBottom: 0 }}
+        >
           {navLinks.map((link, idx) => (
             <li
               key={idx}
@@ -163,12 +175,12 @@ const Navbar = () => {
                     .subLinks.map((subLink, idx) => (
                       <div key={idx}>
                         <button
-                          className="uppercase link__hover py-2 font-semibold"
+                          className="link__hover py-2 font-semibold"
                           onMouseEnter={() =>
                             setSubMenuActiveImg(subLink.thumb)
                           }
                         >
-                          {subLink.title}
+                          <span className="uppercase">{subLink.title}</span>
                         </button>
                       </div>
                     ))}
