@@ -160,7 +160,7 @@ const Navbar = () => {
         {activeDropdown &&
           navLinks.find((link) => link.title === activeDropdown).subLinks && (
             <motion.div
-              className="bg-secondary w-full min-h-[50vh] fixed "
+              className="bg-gradient-to-b to-primary from-secondary w-full min-h-[50vh] fixed "
               initial={{ opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ opacity: 0 }}
