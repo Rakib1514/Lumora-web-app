@@ -89,7 +89,7 @@ const Banner = ({ scrollY }) => {
 
             <motion.div
               style={{ opacity: textOpacity }}
-              className="absolute inset-0 flex flex-col items-center justify-center text-white z-10"
+              className="absolute inset-0 flex flex-col items-center justify-center text-white z-10 text-center md:px-0 px-4"
             >
               <h2 className="text-4xl">{carousel.heading}</h2>
               <p className="text-xl ">{carousel.subHeading}</p>
