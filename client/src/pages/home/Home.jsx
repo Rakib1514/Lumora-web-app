@@ -30,7 +30,7 @@ const Home = () => {
           <NewArrivals />
         </div>
       </div>
-       <MaterialCategories/>
+      <MaterialCategories />
     </>
   );
 };

@@ -17,7 +17,7 @@ const NewArrivals = () => {
 
   
   return (
-    <div className="w-full min-h-screen">
+    <div className="w-full md:min-h-screen pb-32">
       <div className="text-center py-16 px-2">
         <h2 className="md:text-2xl text-xl lg:text-3xl font-bold uppercase">
           New Arrivals
