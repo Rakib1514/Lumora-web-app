@@ -5,6 +5,7 @@ const cors = require("cors");
 // Importing routes
 const itemRoute = require("./src/routes/itemRoute");
 const categoryRoute = require("./src/routes/categoryRoute");
+const userRoute = require("./src/routes/userRoute");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -17,6 +18,7 @@ app.use(express.json());
 // using routes
 app.use("/api/items", itemRoute);
 app.use("/api/categories", categoryRoute);
+app.use("/api/users", userRoute);
 
 app.get("/", (req, res) => {
   res.send("Welcome to the Lumora's API");
