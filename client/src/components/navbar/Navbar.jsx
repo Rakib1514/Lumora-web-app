@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   IoCartOutline,
   IoHeart,
@@ -8,6 +8,7 @@ import {
 } from "react-icons/io5";
 import { MdOutlineAccountBox } from "react-icons/md";
 import { Link } from "react-router";
+import AuthContext from "../../context/auth-context/AuthContext";
 
 const Navbar = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -104,6 +105,10 @@ const Navbar = () => {
       <div className="w-11/12 mx-auto">
         {/* first - Middle brand Name */}
         <div className="py-2 relative">
+          <div className="absolute top-0 left-0 h-full text-white font-bold flex md:hidden justify-center items-center">
+            <div>|||</div>
+          </div>
+
           <div
             className={
               `uppercase text-center text-2xl font-semibold ` +
@@ -112,8 +117,9 @@ const Navbar = () => {
           >
             <Link>Lumora</Link>
           </div>
+
           <div
-            className={`flex gap-2 absolute top-0 right-0 h-full text-2xl ${
+            className={`flex justify-center items-center gap-2 absolute top-0 right-0 h-full text-2xl ${
               colorToggle ? "text-black" : "text-white"
             }`}
           >
@@ -123,7 +129,7 @@ const Navbar = () => {
             <button>
               <IoCartOutline />
             </button>
-            <button>
+            <button className="hidden md:block">
               <IoHeartOutline />
             </button>
             <button>
@@ -134,7 +140,7 @@ const Navbar = () => {
 
         {/* Second - Middle Nav Links */}
         <ul
-          className="flex justify-center items-center capitalize "
+          className="md:flex justify-center items-center capitalize hidden "
           style={{ marginBottom: 0 }}
         >
           {navLinks.map((link, idx) => (
