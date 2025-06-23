@@ -1,14 +1,12 @@
 import { AnimatePresence, motion } from "motion/react";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   IoCartOutline,
-  IoHeart,
   IoHeartOutline,
   IoSearchOutline,
 } from "react-icons/io5";
 import { MdOutlineAccountBox } from "react-icons/md";
-import { Link } from "react-router";
-import AuthContext from "../../context/auth-context/AuthContext";
+import { Link, useLocation } from "react-router";
 
 const Navbar = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -20,6 +18,8 @@ const Navbar = () => {
   const [hideNav, setHideNav] = useState(false);
   const [colorToggle, setColorToggle] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
+
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -94,9 +94,9 @@ const Navbar = () => {
     <motion.nav
       className={
         `fixed top-0 left-0 w-full z-50 transition-colors duration-300 ` +
-        (colorToggle
+        (colorToggle 
           ? "bg-white shadow-lg"
-          : "bg-transparent hover:bg-secondary")
+          : location.pathname === "/"? "bg-transparent hover:bg-secondary" : "bg-secondary")
       }
       initial={{ y: 0 }}
       animate={{ y: hideNav ? -100 : 0 }}
@@ -133,7 +133,9 @@ const Navbar = () => {
               <IoHeartOutline />
             </button>
             <button>
-              <MdOutlineAccountBox />
+              <Link to="/auth/signin">
+                <MdOutlineAccountBox />
+              </Link>
             </button>
           </div>
         </div>
