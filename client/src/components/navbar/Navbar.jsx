@@ -2,12 +2,11 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 import {
   IoCartOutline,
-  IoHeart,
   IoHeartOutline,
   IoSearchOutline,
 } from "react-icons/io5";
 import { MdOutlineAccountBox } from "react-icons/md";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 
 const Navbar = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -19,6 +18,8 @@ const Navbar = () => {
   const [hideNav, setHideNav] = useState(false);
   const [colorToggle, setColorToggle] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
+
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -93,9 +94,9 @@ const Navbar = () => {
     <motion.nav
       className={
         `fixed top-0 left-0 w-full z-50 transition-colors duration-300 ` +
-        (colorToggle
+        (colorToggle 
           ? "bg-white shadow-lg"
-          : "bg-transparent hover:bg-secondary")
+          : location.pathname === "/"? "bg-transparent hover:bg-secondary" : "bg-secondary")
       }
       initial={{ y: 0 }}
       animate={{ y: hideNav ? -100 : 0 }}
@@ -104,6 +105,10 @@ const Navbar = () => {
       <div className="w-11/12 mx-auto">
         {/* first - Middle brand Name */}
         <div className="py-2 relative">
+          <div className="absolute top-0 left-0 h-full text-white font-bold flex md:hidden justify-center items-center">
+            <div>|||</div>
+          </div>
+
           <div
             className={
               `uppercase text-center text-2xl font-semibold ` +
@@ -112,8 +117,9 @@ const Navbar = () => {
           >
             <Link>Lumora</Link>
           </div>
+
           <div
-            className={`flex gap-2 absolute top-0 right-0 h-full text-2xl ${
+            className={`flex justify-center items-center gap-2 absolute top-0 right-0 h-full text-2xl ${
               colorToggle ? "text-black" : "text-white"
             }`}
           >
@@ -123,18 +129,20 @@ const Navbar = () => {
             <button>
               <IoCartOutline />
             </button>
-            <button>
+            <button className="hidden md:block">
               <IoHeartOutline />
             </button>
             <button>
-              <MdOutlineAccountBox />
+              <Link to="/auth/signin">
+                <MdOutlineAccountBox />
+              </Link>
             </button>
           </div>
         </div>
 
         {/* Second - Middle Nav Links */}
         <ul
-          className="flex justify-center items-center capitalize "
+          className="md:flex justify-center items-center capitalize hidden "
           style={{ marginBottom: 0 }}
         >
           {navLinks.map((link, idx) => (
@@ -160,7 +168,7 @@ const Navbar = () => {
         {activeDropdown &&
           navLinks.find((link) => link.title === activeDropdown).subLinks && (
             <motion.div
-              className="bg-secondary w-full min-h-[50vh] fixed "
+              className="bg-gradient-to-b to-primary from-secondary w-full min-h-[50vh] fixed "
               initial={{ opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ opacity: 0 }}

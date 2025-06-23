@@ -5,7 +5,6 @@ import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { motion } from "framer-motion";
 
 const NewArrivals = () => {
   const { data: newArrivalItem } = useQuery({
@@ -16,9 +15,10 @@ const NewArrivals = () => {
     },
   });
 
+  
   return (
-    <div className="w-full min-h-screen">
-      <div className="text-center py-8 px-2">
+    <div className="w-full md:min-h-screen pb-32">
+      <div className="text-center py-16 px-2">
         <h2 className="md:text-2xl text-xl lg:text-3xl font-bold uppercase">
           New Arrivals
         </h2>
@@ -46,15 +46,12 @@ const NewArrivals = () => {
           {newArrivalItem?.map((item) => (
             <SwiperSlide key={item._id} className="group hover:cursor-pointer">
               <div className="h-[80%] w-full overflow-hidden">
-                <motion.img
-                  initial={{ scale: 1 }}
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ duration: 1, ease: "easeInOut" }}
+                <img
                   src={
                     "https://cdn.prosystem.com.bd/images/AMISHEE/328139417_2486433668188955_6481913195503245309_nd492f979-6080-4abf-97f6-591f1d67bfa1.jpg"
                   }
                   alt={item.name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover hover:scale-110 transition-transform duration-1000 ease-in-out"
                 />
               </div>
               <div className="text-center py-2 px-4">
