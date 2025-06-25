@@ -21,7 +21,7 @@ const Banner = ({ scrollY }) => {
   }, []);
 
   const overlayOpacity = useTransform(scrollY, [0, vh], [0.2, 0.8]);
-  
+
   // Make text opacity decrease more gradually as you scroll
   const textOpacity = useTransform(scrollY, [0, vh * 0.3], [1, 0]);
 
