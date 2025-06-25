@@ -14,6 +14,7 @@ const Navbar = () => {
   const [subMenuActiveImg, setSubMenuActiveImg] = useState(
     "https://i.ibb.co.com/nM83jFrc/default-sub-Menu-image.webp"
   );
+  
 
   const [hideNav, setHideNav] = useState(false);
   const [colorToggle, setColorToggle] = useState(false);
@@ -133,7 +134,7 @@ const Navbar = () => {
               <IoHeartOutline />
             </button>
             <button>
-              <Link to="/auth/signin">
+              <Link to="/auth/sign-in">
                 <MdOutlineAccountBox />
               </Link>
             </button>

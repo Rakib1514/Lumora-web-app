@@ -99,7 +99,7 @@ const SignIn = () => {
             </div>
 
             <div className="flex justify-between items-center mt-12">
-              <Link to={'/'}>
+              <Link to={'/auth/sign-up'}>
                 <button
                   type="button"
                   className=" px-4 py-2 hover:bg-primary/20 rounded-xs hover:cursor-pointer"
