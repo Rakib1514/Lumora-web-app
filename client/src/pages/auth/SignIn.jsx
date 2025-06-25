@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import AuthContext from "../../context/auth-context/AuthContext";
+import { Link } from "react-router";
 
 const SignIn = () => {
   const { userSignIn } = useContext(AuthContext);
@@ -31,7 +32,7 @@ const SignIn = () => {
 
   return (
     <div className="min-h-screen flex justify-center items-center">
-      <div className="md:w-5/12 w-11/12 mx-auto shadow-lg bg-white flex justify-center items-center">
+      <div className="md:w-5/12 w-11/12 mx-auto shadow-lg bg-white flex justify-center items-center rounded-xs">
         <div className="w-full m-16">
           <h4 className="text-2xl uppercase font-semibold text-center pb-6">
             Already have an Account
@@ -98,7 +99,14 @@ const SignIn = () => {
             </div>
 
             <div className="flex justify-between items-center mt-12">
-              <button type="button">Create Account</button>
+              <Link to={'/'}>
+                <button
+                  type="button"
+                  className=" px-4 py-2 hover:bg-primary/20 rounded-xs hover:cursor-pointer"
+                >
+                  Create Account
+                </button>
+              </Link>
               <button
                 type="submit"
                 className="px-4 py-2 bg-primary text-white rounded-xs hover:cursor-pointer"
