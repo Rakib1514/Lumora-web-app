@@ -10,6 +10,7 @@ import { Link, useLocation } from "react-router";
 
 const Navbar = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
+  
 
   const [subMenuActiveImg, setSubMenuActiveImg] = useState(
     "https://i.ibb.co.com/nM83jFrc/default-sub-Menu-image.webp"
