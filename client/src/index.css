@@ -29,3 +29,7 @@
   transform: scaleX(1);
 }
 
+
+button {
+  @apply hover:cursor-pointer
+}
