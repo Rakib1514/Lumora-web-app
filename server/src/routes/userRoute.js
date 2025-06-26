@@ -3,7 +3,7 @@ const { createUser, getUser } = require("../controllers/userController");
 const router = express.Router();
 
 router.post("/", createUser);
-router.get("/:uid", getUser);
+router.get("/:firebaseUid", getUser);
 
 // Export the router
 module.exports = router;
