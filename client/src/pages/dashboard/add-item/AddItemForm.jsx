@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 
 const categories = [
-  { _id: "1", name: "Necklace" },
+  { _id: "6857c45d36c44a90bebd0c61", name: "Necklace" },
   { _id: "2", name: "Ring" },
   { _id: "3", name: "Bracelet" },
   { _id: "4", name: "Earrings" },

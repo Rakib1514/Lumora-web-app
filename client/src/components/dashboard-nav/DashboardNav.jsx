@@ -6,7 +6,7 @@ const DashboardNav = () => {
   const [manageItemBtnToggle, setManageItemBtnToggle] = useState(false);
 
   return (
-    <nav className="min-h-screen w-[18vw] bg-gradient-to-b from-primary to-secondary text-white">
+    <nav className="min-h-screen h-full w-[18vw] bg-gradient-to-b from-primary to-secondary text-white">
       <div className="flex items-center gap-2">
         <span className="text-xl px-2 font-semibold">Dashboard</span>
         <div className="flex-1 h-px bg-white"></div>
