@@ -7,6 +7,7 @@ import {
 import { useEffect, useState } from "react";
 import AuthContext from "./AuthContext";
 import auth from "../../firebase/firebase.config";
+import axios from "axios";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -29,7 +30,22 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+      const getCurrentUser = async () => {
+        try {
+          const { data } = await axios.get(`/users/${currentUser.uid}`);
+
+          if (!data.success) {
+            throw new Error("Server Error", data);
+          }
+
+          setUser(data.user);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+      getCurrentUser();
+
       setIsLoading(false);
     });
     return () => unsubscribe();

@@ -4,6 +4,9 @@ import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/home/Home";
 import SignIn from "../pages/auth/SignIn";
 import SignUp from "../pages/auth/SignUp";
+import DashboardLayout from "../layouts/DashboardLayout";
+import Analytics from "../pages/dashboard/analytics/Analytics";
+import Profile from "../pages/dashboard/profile/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +27,20 @@ export const router = createBrowserRouter([
           {
             path: "/auth/sign-up",
             Component: SignUp,
+          },
+        ],
+      },
+      {
+        path: "/dashboard",
+        Component: DashboardLayout,
+        children: [
+          {
+            index: true,
+            Component: Analytics,
+          },
+          {
+            path: "profile",
+            Component: Profile,
           },
         ],
       },
