@@ -24,6 +24,26 @@ const getItems = async (req, res) => {
   }
 };
 
+const addItem = async (req, res) => {
+  const newItem = req.body;
+
+  try {
+    const result = await Item.create(newItem);
+
+    res.status(200).json({
+      success: true,
+      message: "New Item added to db",
+      newItem: result,
+    });
+  } catch (error) {
+    console.log("ERROR posting new item", error);
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   getItems,
+  addItem
 };
