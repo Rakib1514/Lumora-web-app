@@ -27,10 +27,10 @@ const createUser = async (req, res) => {
 };
 
 const getUser = async (req, res) => {
-  const { uid } = req.params;
+  const { firebaseUid } = req.params;
 
   try {
-    const user = await User.findById(uid);
+    const user = await User.findOne({ firebaseUid: firebaseUid });
 
     if (!user) {
       throw new Error("User Not find");
