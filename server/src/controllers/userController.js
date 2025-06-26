@@ -16,7 +16,7 @@ const createUser = async (req, res) => {
       return res.status(400).json({ message: "User already exists" });
     }
     // Create new user
-    const newUser = await User.create({ userData });
+    const newUser = await User.create(userData);
     res.status(201).json({
       message: "User created successfully",
     });

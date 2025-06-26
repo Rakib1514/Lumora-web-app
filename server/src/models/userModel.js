@@ -1,4 +1,4 @@
-const { default: mongoose } = require("mongoose");
+const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema(
   {
@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema(
     },
     image: {
       type: String,
-      default: "https://example.com/default-avatar.png",
+      default: "https://i.ibb.co/JBBRm0K/istockphoto-1321617070-1024x1024-1.jpg",
     },
     isActive: {
       type: Boolean,
