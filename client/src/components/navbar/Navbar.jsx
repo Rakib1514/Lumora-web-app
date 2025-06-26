@@ -7,15 +7,16 @@ import {
 } from "react-icons/io5";
 import { MdOutlineAccountBox } from "react-icons/md";
 import { Link, useLocation } from "react-router";
+import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
-  
+
+  const { user } = useAuth();
 
   const [subMenuActiveImg, setSubMenuActiveImg] = useState(
     "https://i.ibb.co.com/nM83jFrc/default-sub-Menu-image.webp"
   );
-  
 
   const [hideNav, setHideNav] = useState(false);
   const [colorToggle, setColorToggle] = useState(false);
@@ -96,9 +97,11 @@ const Navbar = () => {
     <motion.nav
       className={
         `fixed top-0 left-0 w-full z-50 transition-colors duration-300 ` +
-        (colorToggle 
+        (colorToggle
           ? "bg-white shadow-lg"
-          : location.pathname === "/"? "bg-transparent hover:bg-secondary" : "bg-secondary")
+          : location.pathname === "/"
+          ? "bg-transparent hover:bg-secondary"
+          : "bg-secondary")
       }
       initial={{ y: 0 }}
       animate={{ y: hideNav ? -100 : 0 }}
@@ -135,7 +138,7 @@ const Navbar = () => {
               <IoHeartOutline />
             </button>
             <button>
-              <Link to="/auth/sign-in">
+              <Link to={user ? "/dashboard" : "/auth/sign-in"}>
                 <MdOutlineAccountBox />
               </Link>
             </button>
