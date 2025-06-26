@@ -53,9 +53,9 @@ const SignUp = () => {
   const passwordValue = watch("password", "");
 
   return (
-    <div className="min-h-screen flex justify-center items-center mt-12">
-      <div className="md:w-5/12 w-11/12 mx-auto shadow-lg bg-white rounded-xs">
-        <div className="p-16">
+    <div className="min-h-screen flex justify-center items-center md:mt-12">
+      <div className="lg:w-5/12 md:w-8/12 w-11/12 mx-auto shadow-lg bg-white rounded-xs">
+        <div className="md:p-16 p-6">
           <h4 className="text-2xl uppercase font-semibold text-center pb-6">
             Create Your Account
           </h4>
