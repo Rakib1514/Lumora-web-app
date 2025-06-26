@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import AuthContext from "../../context/auth-context/AuthContext";
 import { Link } from "react-router";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import axios from "axios";
 
 const SignUp = () => {
   const { userSignUp } = useContext(AuthContext);
@@ -19,13 +20,29 @@ const SignUp = () => {
     reset,
   } = useForm();
 
-  const handleSignUp = async ({ name, email, password }) => {
+  const handleSignUp = async (values) => {
+    const { email, password } = values;
+
+    console.log(values);
+
     try {
       setAuthError("");
       setSuccessMsg("");
-      const result = await userSignUp(email, password, name);
+      const result = await userSignUp(email, password);
       console.log("User signed up:", result);
       setSuccessMsg("Account created successfully!");
+
+      const newUser = {
+        firebaseUid: result.user.uid,
+        email: result.user.email,
+        firstName: values.firstName,
+        lastName: values.lastName,
+      };
+
+      const res = await axios.post("/users", newUser);
+
+      console.log(res.data);
+
       reset();
     } catch (error) {
       console.error("Sign-up failed:", error);
@@ -51,20 +68,44 @@ const SignUp = () => {
           )}
 
           <form onSubmit={handleSubmit(handleSignUp)} className="space-y-6">
-            {/* Name */}
+            {/*First Name */}
             <div className="flex flex-col-reverse gap-2">
               <input
-                id="name"
-                {...register("name", { required: "Name is required" })}
+                id="firstName"
+                {...register("firstName", {
+                  required: "First Name is required",
+                })}
                 className={`peer outline-1 px-2 py-3 w-full focus:outline-primary ${
                   errors.name ? "outline-red-500" : "outline-gray-300"
                 }`}
               />
               <label
-                htmlFor="name"
+                htmlFor="firstName"
                 className="text-gray-700 peer-focus:text-primary transition-colors"
               >
-                Full Name
+                First Name
+              </label>
+              {errors.name && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.name.message}
+                </p>
+              )}
+            </div>
+
+            {/* Last Name */}
+            <div className="flex flex-col-reverse gap-2">
+              <input
+                id="lastName"
+                {...register("lastName")}
+                className={`peer outline-1 px-2 py-3 w-full focus:outline-primary ${
+                  errors.name ? "outline-red-500" : "outline-gray-300"
+                }`}
+              />
+              <label
+                htmlFor="lastName"
+                className="text-gray-700 peer-focus:text-primary transition-colors"
+              >
+                Last Name
               </label>
               {errors.name && (
                 <p className="text-red-500 text-sm mt-1">
@@ -147,7 +188,9 @@ const SignUp = () => {
                     val === passwordValue || "Passwords do not match",
                 })}
                 className={`peer outline-1 px-2 py-3 pr-10 w-full focus:outline-primary ${
-                  errors.confirmPassword ? "outline-red-500" : "outline-gray-300"
+                  errors.confirmPassword
+                    ? "outline-red-500"
+                    : "outline-gray-300"
                 }`}
               />
               <label
