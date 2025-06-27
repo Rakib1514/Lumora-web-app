@@ -1,20 +1,27 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-
-const categories = [
-  { _id: "6857c45d36c44a90bebd0c61", name: "Necklace" },
-  { _id: "2", name: "Ring" },
-  { _id: "3", name: "Bracelet" },
-  { _id: "4", name: "Earrings" },
-];
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const AddItemForm = () => {
   const [successMsg, setSuccessMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+  const [isAddingCategory, setIsAddingCategory] = useState(false);
+  const [newCategoryName, setNewCategoryName] = useState("");
 
   const axiosSecure = useAxiosSecure();
+
+  const { data: categories, isLoading: categoriesFetchLoading } = useQuery({
+    queryKey: ["categories"],
+    queryFn: async () => {
+      const res = await axios.get("/categories");
+      if (!res.data.success) {
+        console.log("Internal server Error");
+      }
+      return res.data.categories;
+    },
+  });
 
   const {
     register,
@@ -24,19 +31,33 @@ const AddItemForm = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
+    let { category, ...newItem } = data;
+
     try {
+      if (newCategoryName) {
+        const res = await axiosSecure.post("/categories", {
+          name: newCategoryName,
+        });
+        category = res.data.newCategory._id;
+      }
+
       setSuccessMsg("");
       setErrorMsg("");
 
-      const res = await axiosSecure.post("/items", data);
+      const res = await axiosSecure.post("/items", { ...newItem, category });
       console.log(res.data);
       setSuccessMsg("Item added successfully!");
       reset();
+      setIsAddingCategory(false)
     } catch (err) {
       console.error(err);
       setErrorMsg("Failed to add item. Please try again.");
     }
   };
+
+  if (categoriesFetchLoading) {
+    return <span>Loading categories...</span>;
+  }
 
   return (
     <div className="min-h-screen w-full flex justify-center items-start bg-gray-50 py-8">
@@ -228,29 +249,52 @@ const AddItemForm = () => {
 
               {/* Category */}
               <div className="flex flex-col-reverse gap-2">
-                <select
-                  id="category"
-                  {...register("category", {
-                    required: "Category is required",
-                  })}
-                  className={`peer outline-1 px-2 py-3 w-full focus:outline-primary ${
-                    errors.category ? "outline-red-500" : "outline-gray-300"
-                  }`}
-                >
-                  <option value="">Select Category</option>
-                  {categories.map((cat) => (
-                    <option key={cat._id} value={cat._id}>
-                      {cat.name}
+                {!isAddingCategory ? (
+                  <select
+                    id="category"
+                    {...register("category", {
+                      required: "Category is required",
+                    })}
+                    onChange={(e) => {
+                      if (e.target.value === "__new") {
+                        setIsAddingCategory(true);
+                      }
+                    }}
+                    className={`peer outline-1 px-2 py-3 w-full focus:outline-primary ${
+                      errors.category ? "outline-red-500" : "outline-gray-300"
+                    }`}
+                  >
+                    <option value="">Select Category</option>
+                    {categories.map((cat) => (
+                      <option
+                        key={cat._id}
+                        value={cat._id}
+                        className="capitalize"
+                      >
+                        {cat.name}
+                      </option>
+                    ))}
+                    <option value="__new" className="italic">
+                      + Add new category…
                     </option>
-                  ))}
-                </select>
+                  </select>
+                ) : (
+                  <input
+                    type="text"
+                    value={newCategoryName}
+                    onChange={(e) => setNewCategoryName(e.target.value)}
+                    placeholder="Enter new category"
+                    className="peer outline-1 px-2 py-3 w-full focus:outline-primary outline-gray-300"
+                  />
+                )}
+
                 <label
                   htmlFor="category"
                   className="text-gray-700 peer-focus:text-primary transition-colors"
                 >
                   Category
                 </label>
-                {errors.category && (
+                {errors.category && !isAddingCategory && (
                   <p className="text-red-500 text-sm">
                     {errors.category.message}
                   </p>
