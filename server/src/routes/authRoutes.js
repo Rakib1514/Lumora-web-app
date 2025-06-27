@@ -3,7 +3,6 @@ const {
   setTokenCookie,
   clearTokenCookie,
 } = require("../controllers/tokenController");
-const { verifyAdmin, verifyToken } = require("../middleware/authMiddleware");
 const router = express.Router();
 
 router.post("/jwt-signin", setTokenCookie);
