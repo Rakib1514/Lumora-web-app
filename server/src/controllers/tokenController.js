@@ -21,6 +21,7 @@ const clearTokenCookie = (req, res) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
+      maxAge: 0,
     })
     .json({ message: "JWT signed out" });
 };
