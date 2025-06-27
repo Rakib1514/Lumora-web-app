@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const categories = [
   { _id: "6857c45d36c44a90bebd0c61", name: "Necklace" },
@@ -12,6 +13,8 @@ const categories = [
 const AddItemForm = () => {
   const [successMsg, setSuccessMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+
+  const axiosSecure = useAxiosSecure();
 
   const {
     register,
@@ -25,7 +28,7 @@ const AddItemForm = () => {
       setSuccessMsg("");
       setErrorMsg("");
 
-      const res = await axios.post("/items", data);
+      const res = await axiosSecure.post("/items", data);
       console.log(res.data);
       setSuccessMsg("Item added successfully!");
       reset();
@@ -63,10 +66,17 @@ const AddItemForm = () => {
                       errors.title ? "outline-red-500" : "outline-gray-300"
                     }`}
                   />
-                  <label htmlFor="title" className="text-gray-700 peer-focus:text-primary transition-colors">
+                  <label
+                    htmlFor="title"
+                    className="text-gray-700 peer-focus:text-primary transition-colors"
+                  >
                     Title
                   </label>
-                  {errors.title && <p className="text-red-500 text-sm">{errors.title.message}</p>}
+                  {errors.title && (
+                    <p className="text-red-500 text-sm">
+                      {errors.title.message}
+                    </p>
+                  )}
                 </div>
 
                 {/* Price */}
@@ -78,7 +88,10 @@ const AddItemForm = () => {
                     placeholder="0.00"
                     className="peer outline-1 px-2 py-3 w-full focus:outline-primary outline-gray-300"
                   />
-                  <label htmlFor="price" className="text-gray-700 peer-focus:text-primary transition-colors">
+                  <label
+                    htmlFor="price"
+                    className="text-gray-700 peer-focus:text-primary transition-colors"
+                  >
                     Price (USD)
                   </label>
                 </div>
@@ -88,22 +101,34 @@ const AddItemForm = () => {
                   <input
                     type="number"
                     id="stock"
-                    {...register("stock", { required: "Stock is required", min: { value: 0, message: "Stock cannot be negative" } })}
+                    {...register("stock", {
+                      required: "Stock is required",
+                      min: { value: 0, message: "Stock cannot be negative" },
+                    })}
                     className={`peer outline-1 px-2 py-3 w-full focus:outline-primary ${
                       errors.stock ? "outline-red-500" : "outline-gray-300"
                     }`}
                   />
-                  <label htmlFor="stock" className="text-gray-700 peer-focus:text-primary transition-colors">
+                  <label
+                    htmlFor="stock"
+                    className="text-gray-700 peer-focus:text-primary transition-colors"
+                  >
                     Stock
                   </label>
-                  {errors.stock && <p className="text-red-500 text-sm">{errors.stock.message}</p>}
+                  {errors.stock && (
+                    <p className="text-red-500 text-sm">
+                      {errors.stock.message}
+                    </p>
+                  )}
                 </div>
 
                 {/* Material */}
                 <div className="flex flex-col-reverse gap-2">
                   <select
                     id="material"
-                    {...register("material", { required: "Material is required" })}
+                    {...register("material", {
+                      required: "Material is required",
+                    })}
                     className={`peer outline-1 px-2 py-3 w-full focus:outline-primary ${
                       errors.material ? "outline-red-500" : "outline-gray-300"
                     }`}
@@ -115,10 +140,17 @@ const AddItemForm = () => {
                     <option value="platinum">Platinum</option>
                     <option value="bronze">Bronze</option>
                   </select>
-                  <label htmlFor="material" className="text-gray-700 peer-focus:text-primary transition-colors">
+                  <label
+                    htmlFor="material"
+                    className="text-gray-700 peer-focus:text-primary transition-colors"
+                  >
                     Material
                   </label>
-                  {errors.material && <p className="text-red-500 text-sm">{errors.material.message}</p>}
+                  {errors.material && (
+                    <p className="text-red-500 text-sm">
+                      {errors.material.message}
+                    </p>
+                  )}
                 </div>
 
                 {/* Brand */}
@@ -128,7 +160,10 @@ const AddItemForm = () => {
                     {...register("brand")}
                     className="peer outline-1 px-2 py-3 w-full focus:outline-primary outline-gray-300"
                   />
-                  <label htmlFor="brand" className="text-gray-700 peer-focus:text-primary transition-colors">
+                  <label
+                    htmlFor="brand"
+                    className="text-gray-700 peer-focus:text-primary transition-colors"
+                  >
                     Brand
                   </label>
                 </div>
@@ -140,7 +175,10 @@ const AddItemForm = () => {
                     {...register("artist")}
                     className="peer outline-1 px-2 py-3 w-full focus:outline-primary outline-gray-300"
                   />
-                  <label htmlFor="artist" className="text-gray-700 peer-focus:text-primary transition-colors">
+                  <label
+                    htmlFor="artist"
+                    className="text-gray-700 peer-focus:text-primary transition-colors"
+                  >
                     Artist
                   </label>
                 </div>
@@ -152,15 +190,24 @@ const AddItemForm = () => {
                 <textarea
                   id="description"
                   rows={3}
-                  {...register("description", { required: "Description is required" })}
+                  {...register("description", {
+                    required: "Description is required",
+                  })}
                   className={`peer outline-1 px-2 py-3 w-full focus:outline-primary resize-none ${
                     errors.description ? "outline-red-500" : "outline-gray-300"
                   }`}
                 ></textarea>
-                <label htmlFor="description" className="text-gray-700 peer-focus:text-primary transition-colors">
+                <label
+                  htmlFor="description"
+                  className="text-gray-700 peer-focus:text-primary transition-colors"
+                >
                   Description
                 </label>
-                {errors.description && <p className="text-red-500 text-sm">{errors.description.message}</p>}
+                {errors.description && (
+                  <p className="text-red-500 text-sm">
+                    {errors.description.message}
+                  </p>
+                )}
               </div>
 
               {/* Image URLs */}
@@ -171,7 +218,10 @@ const AddItemForm = () => {
                   placeholder="Comma-separated URLs"
                   className="peer outline-1 px-2 py-3 w-full focus:outline-primary outline-gray-300"
                 />
-                <label htmlFor="image" className="text-gray-700 peer-focus:text-primary transition-colors">
+                <label
+                  htmlFor="image"
+                  className="text-gray-700 peer-focus:text-primary transition-colors"
+                >
                   Image URLs
                 </label>
               </div>
@@ -180,7 +230,9 @@ const AddItemForm = () => {
               <div className="flex flex-col-reverse gap-2">
                 <select
                   id="category"
-                  {...register("category", { required: "Category is required" })}
+                  {...register("category", {
+                    required: "Category is required",
+                  })}
                   className={`peer outline-1 px-2 py-3 w-full focus:outline-primary ${
                     errors.category ? "outline-red-500" : "outline-gray-300"
                   }`}
@@ -192,10 +244,17 @@ const AddItemForm = () => {
                     </option>
                   ))}
                 </select>
-                <label htmlFor="category" className="text-gray-700 peer-focus:text-primary transition-colors">
+                <label
+                  htmlFor="category"
+                  className="text-gray-700 peer-focus:text-primary transition-colors"
+                >
                   Category
                 </label>
-                {errors.category && <p className="text-red-500 text-sm">{errors.category.message}</p>}
+                {errors.category && (
+                  <p className="text-red-500 text-sm">
+                    {errors.category.message}
+                  </p>
+                )}
               </div>
 
               {/* Submit */}
