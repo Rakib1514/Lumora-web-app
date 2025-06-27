@@ -1,9 +1,13 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import { NavLink } from "react-router";
+import useAuth from "../../hooks/useAuth";
 
 const DashboardNav = () => {
   const [manageItemBtnToggle, setManageItemBtnToggle] = useState(false);
+
+  const { user } = useAuth();
+  
 
   return (
     <nav className="min-h-screen h-full w-[18vw] bg-gradient-to-b from-primary to-secondary text-white">
@@ -60,7 +64,6 @@ const DashboardNav = () => {
           )}
         </AnimatePresence>
 
-        
         <li className="px-4 py-1.5 hover:bg-white/20">
           <NavLink to="/dashboard/pages" className="block w-full">
             Manage Pages
