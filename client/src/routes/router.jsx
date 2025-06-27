@@ -7,6 +7,8 @@ import SignUp from "../pages/auth/SignUp";
 import DashboardLayout from "../layouts/DashboardLayout";
 import Analytics from "../pages/dashboard/analytics/Analytics";
 import Profile from "../pages/dashboard/profile/Profile";
+import ManageItems from "../pages/dashboard/manage-items/ManageItems";
+import AddItem from "../pages/dashboard/add-item/AddItem";
 
 export const router = createBrowserRouter([
   {
@@ -37,6 +39,10 @@ export const router = createBrowserRouter([
           {
             index: true,
             Component: Analytics,
+          },
+          {
+            path: "add-item",
+            Component: AddItem,
           },
           {
             path: "profile",

@@ -1,6 +1,5 @@
 const jwt = require("jsonwebtoken");
 
-
 const setTokenCookie = (req, res) => {
   const uid = req.body;
 
@@ -13,7 +12,7 @@ const setTokenCookie = (req, res) => {
       sameSite: "strict",
       maxAge: 24 * 60 * 60 * 1000,
     })
-    .json({ message: "JWT signed in" });
+    .json({ success: true, message: "JWT signed in" });
 };
 
 const clearTokenCookie = (req, res) => {

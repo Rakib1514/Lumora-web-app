@@ -28,9 +28,11 @@ const verifyAdmin = async (req, res, next) => {
         message: "unauthorize access",
       });
     }
-
     next();
-  } catch (error) {}
+  } catch (error) {
+    console.log("Error while verify Admin", error);
+    return res.status(403).json({ message: "admin verification failed" });
+  }
 };
 
 module.exports = { verifyToken, verifyAdmin };
