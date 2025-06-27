@@ -33,11 +33,21 @@ const AuthProvider = ({ children }) => {
       const getCurrentUser = async () => {
         try {
           const { data } = await axios.get(`/users/${currentUser.uid}`);
-
           if (!data.success) {
             throw new Error("Server Error", data);
           }
 
+          const res = await axios.post(
+            "/auth/jwt-signin",
+            { _id: data.user._id },
+            { withCredentials: true }
+          );
+
+          if (!res.data.success) {
+            throw new Error("Jwt sing in failed");
+          }
+
+          console.log(res.data);
           setUser(data.user);
         } catch (error) {
           console.log(error);

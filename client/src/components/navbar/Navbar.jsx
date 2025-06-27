@@ -14,6 +14,8 @@ const Navbar = () => {
 
   const { user } = useAuth();
 
+  console.log(user ,"at navbar")
+
   const [subMenuActiveImg, setSubMenuActiveImg] = useState(
     "https://i.ibb.co.com/nM83jFrc/default-sub-Menu-image.webp"
   );
