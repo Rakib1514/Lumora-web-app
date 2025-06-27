@@ -42,6 +42,11 @@ const AuthProvider = ({ children }) => {
             { _id: data.user._id },
             { withCredentials: true }
           );
+
+          if (!res.data.success) {
+            throw new Error("Jwt sing in failed");
+          }
+
           console.log(res.data);
           setUser(data.user);
         } catch (error) {
