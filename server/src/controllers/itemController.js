@@ -1,19 +1,30 @@
 const Item = require("../models/itemModel");
 
-// GET /items?page=1&limit=20
+// GET /items?page=1&limit=20&category=60f7b2d5c45e4a3f6c8a4b2e
 const getItems = async (req, res) => {
+  // parse and sanitize pagination parameters
   const page = Math.max(1, parseInt(req.query.page, 10) || 1);
   const limit = Math.max(1, parseInt(req.query.limit, 10) || 20);
 
+  // build a dynamic filter object
+  const filter = {};
+  if (req.query.category) {
+    filter.category = req.query.category;
+  }
+
   try {
-    const items = await Item.find()
+    const items = await Item.find(filter)
       .select("title price image stock material brand artist discount rating")
       .populate("category", "-_id -__v")
       .skip((page - 1) * limit)
       .limit(limit)
       .lean();
 
-    return res.status(200).json(items);
+    return res.status(200).json({
+      success: true,
+      message: "Item fetched",
+      collections: items,
+    });
   } catch (error) {
     console.error("Error fetching items:", error);
 
@@ -45,5 +56,5 @@ const addItem = async (req, res) => {
 
 module.exports = {
   getItems,
-  addItem
+  addItem,
 };
