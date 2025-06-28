@@ -12,13 +12,15 @@ const Collections = () => {
 
   const { categories } = useCategories();
 
-  const { data: collections } = useQuery({
+  const { data } = useQuery({
     queryKey: ["collection", params.id],
     queryFn: async () => {
       const res = await axios.get(`/items?category=${params.id}`);
       return res.data.collections;
     },
   });
+
+  const collections = [...data, ...data,...data, ...data,...data, ...data, ]
 
   return (
     <div>
@@ -72,6 +74,42 @@ const Collections = () => {
               </SwiperSlide>
             ))}
           </Swiper>
+        </div>
+      </div>
+
+      <div >
+        <div className="flex gap-4 items-center my-8">
+          <div className="p-4 border">Filter</div>
+          <div>
+            <span className="font-bold">{params.category}</span>
+            <span> {collections?.length} Available</span>
+          </div>
+        </div>
+
+        {/* Collection display with grid */}
+
+        <div className="grid grid-cols-4 gap-4">
+          {collections.map((item) => (
+            <div key={item?._id} className="group hover:cursor-pointer">
+              <div className="h-72 w-full overflow-hidden">
+                <img
+                  src={item?.image[0]}
+                  alt={item?.name}
+                  className="w-full h-full object-cover hover:scale-110 transition-transform duration-1000 ease-in-out"
+                />
+              </div>
+              <div className="text-center py-2 px-4">
+                <h3 className="text-xl group-hover:text-primary transition-colors duration-300 ease-in-out">
+                  {item?.title}
+                </h3>
+                <div>
+                  <span className="capitalize text-gray-700">
+                    {item.category?.name}
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
