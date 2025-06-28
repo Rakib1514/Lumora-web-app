@@ -8,6 +8,7 @@ import AddItem from "../pages/dashboard/add-item/AddItem";
 import Analytics from "../pages/dashboard/analytics/Analytics";
 import Profile from "../pages/dashboard/profile/Profile";
 import Home from "../pages/home/Home";
+import Collections from "../pages/collections/Collections";
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ export const router = createBrowserRouter([
           {
             path: "/auth/sign-up",
             Component: SignUp,
+          },
+          {
+            path: "/collections/:category/:id",
+            Component: Collections,
           },
         ],
       },

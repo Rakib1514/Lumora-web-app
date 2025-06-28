@@ -48,7 +48,7 @@ const AddItemForm = () => {
       console.log(res.data);
       setSuccessMsg("Item added successfully!");
       reset();
-      setIsAddingCategory(false)
+      setIsAddingCategory(false);
     } catch (err) {
       console.error(err);
       setErrorMsg("Failed to add item. Please try again.");

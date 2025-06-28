@@ -44,23 +44,23 @@ const NewArrivals = () => {
           className="w-full md:h-[300px] h-[300px] lg:h-[60vh] "
         >
           {newArrivalItem?.map((item) => (
-            <SwiperSlide key={item._id} className="group hover:cursor-pointer">
+            <SwiperSlide key={item?._id} className="group hover:cursor-pointer">
               <div className="h-[80%] w-full overflow-hidden">
                 <img
                   src={
                     "https://cdn.prosystem.com.bd/images/AMISHEE/328139417_2486433668188955_6481913195503245309_nd492f979-6080-4abf-97f6-591f1d67bfa1.jpg"
                   }
-                  alt={item.name}
+                  alt={item?.name}
                   className="w-full h-full object-cover hover:scale-110 transition-transform duration-1000 ease-in-out"
                 />
               </div>
               <div className="text-center py-2 px-4">
                 <h3 className="text-xl group-hover:text-primary transition-colors duration-300 ease-in-out">
-                  {item.title}
+                  {item?.title}
                 </h3>
                 <div>
                   <span className="capitalize text-gray-700">
-                    {item.category.name}
+                    {item.category?.name}
                   </span>
                 </div>
               </div>
