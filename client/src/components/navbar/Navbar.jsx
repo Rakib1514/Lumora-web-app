@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   IoCartOutline,
   IoHeartOutline,
@@ -8,13 +8,12 @@ import {
 import { MdOutlineAccountBox } from "react-icons/md";
 import { Link, useLocation } from "react-router";
 import useAuth from "../../hooks/useAuth";
+import useCategories from "../../hooks/useCategories";
 
 const Navbar = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
 
   const { user } = useAuth();
-
-  console.log(user ,"at navbar")
 
   const [subMenuActiveImg, setSubMenuActiveImg] = useState(
     "https://i.ibb.co.com/nM83jFrc/default-sub-Menu-image.webp"
@@ -25,6 +24,8 @@ const Navbar = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
 
   const location = useLocation();
+
+  const { categories } = useCategories();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,51 +50,38 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
-  const navLinks = [
-    {
-      title: "expertise",
-      path: "/expertise",
-      subLinks: null,
-    },
-    {
-      title: "collections",
-      path: "/collections",
-      subLinks: [
-        {
-          title: "All collections",
-          path: "/all-collections",
-          thumb: "https://i.ibb.co.com/nM83jFrc/default-sub-Menu-image.webp",
-        },
-        {
-          title: "jewelry sets",
-          path: "/jewelry-sets",
-          thumb: "https://i.ibb.co.com/pjvH8J8B/jewelery-sets.jpg",
-        },
-        {
-          title: "earrings",
-          path: "/earrings",
-          thumb: "https://i.ibb.co.com/MDPJrjKX/earrings.jpg",
-        },
-        {
-          title: "rings",
-          path: "/rings",
-          thumb: "https://i.ibb.co.com/5pd1Nnh/rings.jpg",
-        },
-      ],
-    },
-    {
-      title: "jewelry insight",
-      path: "/jewelry-insight",
-    },
-    {
-      title: "news",
-      path: "/news",
-    },
-    {
-      title: "contact",
-      path: "/contact",
-    },
-  ];
+  const navLinks = useMemo(() => {
+    const baseLinks = [
+      {
+        title: "expertise",
+        path: "/expertise",
+        subLinks: null,
+      },
+      {
+        title: "collections",
+        path: "/collections",
+        subLinks:
+          categories?.map((category) => ({
+            title: category?.name,
+            path: `/collections/${category?.name}/${category?._id}`,
+            image: category?.image || "https://i.ibb.co.com/5pd1Nnh/rings.jpg",
+          })) || [],
+      },
+      {
+        title: "jewelry insight",
+        path: "/jewelry-insight",
+      },
+      {
+        title: "news",
+        path: "/news",
+      },
+      {
+        title: "contact",
+        path: "/contact",
+      },
+    ];
+    return baseLinks;
+  }, [categories]);
 
   return (
     <motion.nav
@@ -192,10 +180,13 @@ const Navbar = () => {
                         <button
                           className="link__hover py-2 font-semibold hover:cursor-pointer"
                           onMouseEnter={() =>
-                            setSubMenuActiveImg(subLink.thumb)
+                            setSubMenuActiveImg(subLink.image)
                           }
+                          onClick={()=> setActiveDropdown(null)}
                         >
-                          <span className="uppercase">{subLink.title}</span>
+                          <Link to={subLink?.path} className="uppercase">
+                            {subLink.title}
+                          </Link>
                         </button>
                       </div>
                     ))}

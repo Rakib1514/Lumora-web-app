@@ -77,6 +77,11 @@ const DashboardNav = () => {
               </NavLink>
             </li>
             <li className="px-4 py-1.5 hover:bg-white/20">
+              <NavLink to="/dashboard/categories" className="block w-full">
+                Manage categories
+              </NavLink>
+            </li>
+            <li className="px-4 py-1.5 hover:bg-white/20">
               <NavLink to="/dashboard/users" className="block w-full">
                 Manage Users
               </NavLink>

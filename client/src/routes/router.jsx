@@ -1,14 +1,14 @@
 import { createBrowserRouter } from "react-router";
 import App from "../app/App";
+import DashboardLayout from "../layouts/DashboardLayout";
 import MainLayout from "../layouts/MainLayout";
-import Home from "../pages/home/Home";
 import SignIn from "../pages/auth/SignIn";
 import SignUp from "../pages/auth/SignUp";
-import DashboardLayout from "../layouts/DashboardLayout";
+import AddItem from "../pages/dashboard/add-item/AddItem";
 import Analytics from "../pages/dashboard/analytics/Analytics";
 import Profile from "../pages/dashboard/profile/Profile";
-import ManageItems from "../pages/dashboard/manage-items/ManageItems";
-import AddItem from "../pages/dashboard/add-item/AddItem";
+import Home from "../pages/home/Home";
+import Collections from "../pages/collections/Collections";
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +29,10 @@ export const router = createBrowserRouter([
           {
             path: "/auth/sign-up",
             Component: SignUp,
+          },
+          {
+            path: "/collections/:category/:id",
+            Component: Collections,
           },
         ],
       },
