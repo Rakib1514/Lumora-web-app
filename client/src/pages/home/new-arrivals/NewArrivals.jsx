@@ -7,14 +7,17 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 const NewArrivals = () => {
-  const { data: newArrivalItem } = useQuery({
+  const { data: newArrivalItem, isLoading } = useQuery({
     queryKey: ["new-arrivals"],
     queryFn: async () => {
       const res = await axios.get("/items");
-      return res.data;
+      return res.data.collections;
     },
   });
 
+  if(isLoading){
+    return <span> Loading in new arrivals</span>
+  }
   
   return (
     <div className="w-full md:min-h-screen pb-32">
@@ -47,9 +50,7 @@ const NewArrivals = () => {
             <SwiperSlide key={item?._id} className="group hover:cursor-pointer">
               <div className="h-[80%] w-full overflow-hidden">
                 <img
-                  src={
-                    "https://cdn.prosystem.com.bd/images/AMISHEE/328139417_2486433668188955_6481913195503245309_nd492f979-6080-4abf-97f6-591f1d67bfa1.jpg"
-                  }
+                  src={item?.image[0]}
                   alt={item?.name}
                   className="w-full h-full object-cover hover:scale-110 transition-transform duration-1000 ease-in-out"
                 />

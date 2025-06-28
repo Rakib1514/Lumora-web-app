@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import useCategories from "../../../hooks/useCategories";
 
 const AddItemForm = () => {
   const [successMsg, setSuccessMsg] = useState("");
@@ -12,16 +11,7 @@ const AddItemForm = () => {
 
   const axiosSecure = useAxiosSecure();
 
-  const { data: categories, isLoading: categoriesFetchLoading } = useQuery({
-    queryKey: ["categories"],
-    queryFn: async () => {
-      const res = await axios.get("/categories");
-      if (!res.data.success) {
-        console.log("Internal server Error");
-      }
-      return res.data.categories;
-    },
-  });
+  const { categories, isCategoriesLoading } = useCategories();
 
   const {
     register,
@@ -55,7 +45,7 @@ const AddItemForm = () => {
     }
   };
 
-  if (categoriesFetchLoading) {
+  if (isCategoriesLoading) {
     return <span>Loading categories...</span>;
   }
 

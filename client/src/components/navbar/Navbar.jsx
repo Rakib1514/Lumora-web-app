@@ -8,14 +8,12 @@ import {
 import { MdOutlineAccountBox } from "react-icons/md";
 import { Link, useLocation } from "react-router";
 import useAuth from "../../hooks/useAuth";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import useCategories from "../../hooks/useCategories";
 
 const Navbar = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
 
   const { user } = useAuth();
-
 
   const [subMenuActiveImg, setSubMenuActiveImg] = useState(
     "https://i.ibb.co.com/nM83jFrc/default-sub-Menu-image.webp"
@@ -27,13 +25,7 @@ const Navbar = () => {
 
   const location = useLocation();
 
-  const { data: categories } = useQuery({
-    queryKey: ["categories"],
-    queryFn: async () => {
-      const res = await axios.get("/categories");
-      return res.data.categories;
-    },
-  });
+  const { categories } = useCategories();
 
   useEffect(() => {
     const handleScroll = () => {
