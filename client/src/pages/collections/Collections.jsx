@@ -12,7 +12,7 @@ const Collections = () => {
 
   const { categories } = useCategories();
 
-  const { data } = useQuery({
+  const { data=[], isLoading } = useQuery({
     queryKey: ["collection", params.id],
     queryFn: async () => {
       const res = await axios.get(`/items?category=${params.id}`);
@@ -21,6 +21,10 @@ const Collections = () => {
   });
 
   const collections = [...data, ...data,...data, ...data,...data, ...data, ]
+
+  if(isLoading){
+    <span>Loading in collection</span>
+  }
 
   return (
     <div>

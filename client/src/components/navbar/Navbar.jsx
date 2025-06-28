@@ -182,6 +182,7 @@ const Navbar = () => {
                           onMouseEnter={() =>
                             setSubMenuActiveImg(subLink.image)
                           }
+                          onClick={()=> setActiveDropdown(null)}
                         >
                           <Link to={subLink?.path} className="uppercase">
                             {subLink.title}
