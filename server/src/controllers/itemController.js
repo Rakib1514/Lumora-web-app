@@ -54,7 +54,46 @@ const addItem = async (req, res) => {
   }
 };
 
+const getSingleItem = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const result = await Item.findById(id).select(
+      "title price image stock material brand artist discount rating description"
+    ).populate("category", "-_id -__v")
+
+    if (!result) {
+      return res.status(404).json({
+        success: false,
+        message: "Item not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Item fetched successfully",
+      product: result,
+    });
+  } catch (error) {
+    console.error("Error fetching single item:", error);
+
+    if (error.name === "CastError") {
+      // This occurs if the ID format is invalid (not a valid ObjectId)
+      return res.status(400).json({
+        success: false,
+        message: "Invalid item ID format",
+      });
+    }
+
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+
 module.exports = {
   getItems,
   addItem,
+  getSingleItem,
 };
