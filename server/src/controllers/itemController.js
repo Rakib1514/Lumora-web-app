@@ -59,8 +59,8 @@ const getSingleItem = async (req, res) => {
 
   try {
     const result = await Item.findById(id).select(
-      "title price image stock material brand artist discount rating"
-    );
+      "title price image stock material brand artist discount rating description"
+    ).populate("category", "-_id -__v")
 
     if (!result) {
       return res.status(404).json({
