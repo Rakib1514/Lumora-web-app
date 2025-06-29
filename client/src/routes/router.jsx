@@ -9,6 +9,7 @@ import Analytics from "../pages/dashboard/analytics/Analytics";
 import Profile from "../pages/dashboard/profile/Profile";
 import Home from "../pages/home/Home";
 import Collections from "../pages/collections/Collections";
+import ProductDetails from "../pages/product-details/ProductDetails";
 
 export const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ export const router = createBrowserRouter([
           {
             path: "/collections",
             Component: Collections,
+          },
+          {
+            path: `/product/:_id`,
+            Component: ProductDetails,
           },
         ],
       },
