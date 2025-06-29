@@ -12,6 +12,7 @@ const useCategories = () => {
       const res = await axios.get("/categories");
       return res.data.categories;
     },
+    staleTime: 10 * 60 * 1000,
   });
 
   return { categories, isCategoriesLoading, isCategoriesError };

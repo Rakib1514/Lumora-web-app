@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useParams } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import "swiper/css";
 import "swiper/css/pagination";
 // import { Pagination } from 'swiper/modules';
@@ -8,22 +8,33 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import useCategories from "../../hooks/useCategories";
 
 const Collections = () => {
-  const params = useParams();
+  const { search } = useLocation();
 
+  const query = new URLSearchParams(search);
+
+  const categoryName = query.get("category");
+  const categoryId = query.get("id");
+
+  
+  
   const { categories } = useCategories();
 
-  const { data=[], isLoading } = useQuery({
-    queryKey: ["collection", params.id],
+  const navigate = useNavigate();
+
+  const { data: collections = [], isLoading } = useQuery({
+    queryKey: ["collection", categoryId],
     queryFn: async () => {
-      const res = await axios.get(`/items?category=${params.id}`);
+      const res = await axios.get(`/items?category=${categoryId}`);
       return res.data.collections;
     },
   });
 
-  const collections = [...data, ...data,...data, ...data,...data, ...data, ]
+  const handleSwitchCategory = (categoryName, categoryId) => {
+    navigate(`/collections?category=${categoryName}&id=${categoryId}`);
+  };
 
-  if(isLoading){
-    <span>Loading in collection</span>
+  if (isLoading) {
+    <span>Loading in collection</span>;
   }
 
   return (
@@ -55,7 +66,7 @@ const Collections = () => {
             breakpoints={{
               0: { slidesPerView: 2.4 },
               768: { slidesPerView: 4.4 },
-              1024: { slidesPerView: 5 },
+              1024: { slidesPerView: 6 },
             }}
             spaceBetween={15}
             centeredSlides={false}
@@ -68,7 +79,13 @@ const Collections = () => {
             </SwiperSlide>
 
             {categories?.map((category) => (
-              <SwiperSlide key={category._id}>
+              <SwiperSlide
+                key={category._id}
+                onClick={() =>
+                  handleSwitchCategory(category.name, category._id)
+                }
+                className="hover:cursor-pointer"
+              >
                 <img
                   src={category.image}
                   alt=""
@@ -81,11 +98,13 @@ const Collections = () => {
         </div>
       </div>
 
-      <div >
+      <div>
         <div className="flex gap-4 items-center my-8">
-          <div className="p-4 border">Filter</div>
+          <div className="p-4 border">
+            <Link to={''}>Gold</Link>
+          </div>
           <div>
-            <span className="font-bold">{params.category}</span>
+            <span className="font-bold">{categoryName}</span>
             <span> {collections?.length} Available</span>
           </div>
         </div>

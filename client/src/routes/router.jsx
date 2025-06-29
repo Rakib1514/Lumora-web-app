@@ -31,7 +31,7 @@ export const router = createBrowserRouter([
             Component: SignUp,
           },
           {
-            path: "/collections/:category/:id",
+            path: "/collections",
             Component: Collections,
           },
         ],

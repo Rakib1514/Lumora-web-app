@@ -63,7 +63,7 @@ const Navbar = () => {
         subLinks:
           categories?.map((category) => ({
             title: category?.name,
-            path: `/collections/${category?.name}/${category?._id}`,
+            path: `/collections?category=${category?.name}&id=${category?._id}`,
             image: category?.image || "https://i.ibb.co.com/5pd1Nnh/rings.jpg",
           })) || [],
       },
