@@ -1,4 +1,3 @@
-import { p, path } from "motion/react-client";
 import SimpleParallax from "simple-parallax-js";
 
 const MaterialCategories = () => {
@@ -29,40 +28,43 @@ const MaterialCategories = () => {
       buttonText: "DISCOVER",
       path: "/gold",
       backgroundColor: "#3C151E",
-    }
+    },
   ];
 
   return (
     <div className="h-[300vh]">
-
-      {
-        categoryOptions.map((category, idx) => (
+      {categoryOptions.map((category, idx) => (
+        <div
+          key={category.title}
+          className=" grid md:grid-cols-2 grid-cols-1 h-screen"
+          style={{ backgroundColor: category.backgroundColor }}
+        >
           <div
-            key={idx}
-            className=" grid md:grid-cols-2 grid-cols-1 h-screen"
-            style={{ backgroundColor: category.backgroundColor }}
+            className={` flex flex-col justify-center items-center text-center text-white uppercase ${
+              idx % 2 !== 0 ? "md:order-2" : "md:order-1"
+            }`}
           >
-            <div className={` flex flex-col justify-center items-center text-center text-white uppercase ${idx % 2 !== 0 ? "md:order-2": "md:order-1"}`}>
-              <p className="text-3xl">{category.title}</p>
-              <p>{category.description}</p>
-              <button className="uppercase px-4 py-2 border-2 border-primary">
-                {category.buttonText}
-              </button>
-            </div>
-            <div className={` overflow-hidden relative ${idx % 2 !== 0 ? "md:order-1" : "md:order-2"}`}>
-              <SimpleParallax scale={1.2}>
-                <img
-                  src={category.imageUrl}
-                  alt={category.title}
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-              </SimpleParallax>
-            </div>
+            <p className="text-3xl">{category.title}</p>
+            <p>{category.description}</p>
+            <button className="uppercase px-4 py-2 border-2 border-primary">
+              {category.buttonText}
+            </button>
           </div>
-        ))
-      }
-      
-
+          <div
+            className={` overflow-hidden relative ${
+              idx % 2 !== 0 ? "md:order-1" : "md:order-2"
+            }`}
+          >
+              <div>
+                <img
+                src={category.imageUrl}
+                alt={category.title}
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+              </div>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };

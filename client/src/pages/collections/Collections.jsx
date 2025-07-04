@@ -116,8 +116,8 @@ const Collections = () => {
 
         <div className="grid grid-cols-4 gap-4">
           {collections.map((item) => (
-            <Link to={`/product/${item._id}`}>
-              <div key={item?._id} className="group hover:cursor-pointer">
+            <Link to={`/product/${item._id}`} key={item?._id}>
+              <div className="group hover:cursor-pointer">
                 <div className="h-72 w-full overflow-hidden">
                   <img
                     src={item?.image[0]}

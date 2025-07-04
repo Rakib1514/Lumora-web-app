@@ -6,6 +6,7 @@ const useCategories = () => {
     data: categories,
     isLoading: isCategoriesLoading,
     isError: isCategoriesError,
+    refetch: refetchCategories
   } = useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
@@ -15,7 +16,7 @@ const useCategories = () => {
     staleTime: 10 * 60 * 1000,
   });
 
-  return { categories, isCategoriesLoading, isCategoriesError };
+  return { categories, isCategoriesLoading, isCategoriesError, refetchCategories };
 };
 
 export default useCategories;
